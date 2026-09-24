@@ -82,8 +82,20 @@ export class CarController {
   // };
 
   deleteCar = async (_req: Request, res: Response): Promise<void> => {
-    res.status(200).json({ success: true, 
-      data: `this is just dummy for now a response to the delete car by id request with car id ${_req.params.id}` }); 
+    try{
+      const id = Array.isArray(_req.params.id) ? _req.params.id[0] : _req.params.id;
+      const deletingCar = await carService.deleteCar(id);
+
+      if (!deletingCar) {
+        res.status(404).json({ message: 'Car not found' });
+        return;
+      }
+          res.status(200).json({ success: true, 
+            data: `car id ${_req.params.id} deleted successfully` }); 
+    }
+    catch(error){
+      res.status(500).json({ message: 'Error deleting car', error })
+    }
   };
 
 }
