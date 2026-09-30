@@ -3,12 +3,14 @@ import carRoutes from './routes/cars';
 import { env } from "./config/env";
 import { connectDB } from "./config/database";
 import {authenticateKey} from './middleware/auth.middleware';
+import { logger } from './middleware/logger.middleware';
 
 const port = env.port
 //const PORT = process.env.PORT || 2900;
 
 const app: Application = express();
 
+app.use(logger);
 app.use(express.json());
 app.use('/api/v1/cars', authenticateKey, carRoutes);
 
