@@ -9,7 +9,8 @@ x-api-key: blahblah
 
 {"test" : "post test",
 "make": "sillymake",
-"model":"sillymodel"
+"model":"sillymodel",
+"year": 2020
 }
 
 ###
@@ -19,6 +20,7 @@ x-api-key: blahblah
 ###
 GET  {{endpoint}} HTTP/3.0
 content-type: application/json
+x-api-key: blahblah
 
 ###
 GET http://localhost:3000/api/v1/cars HTTP/1.1
@@ -29,6 +31,7 @@ x-api-key: blahblah
 ###
 GET  {{endpoint}}/{{newCar}} HTTP/3.0
 content-type: application/json
+x-api-key: blahblah
 
 
 ###
@@ -43,8 +46,11 @@ content-type: application/json
 
 ###
 
-PUT  {{endpoint}}/sillycarID HTTP/3.0
+PUT  {{endpoint}}/6abcd184b66431348f09dd58 HTTP/3.0
 content-type: application/json
+x-api-key: blahblah
 
-{ "test" : "post test"
+{ "make": "sneed",
+  "model": "chuck",
+  "year": 2021
 }
