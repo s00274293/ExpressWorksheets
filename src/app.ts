@@ -10,7 +10,7 @@ import { swaggerSpec } from "./config/swagger";
 const port = env.port
 //const PORT = process.env.PORT || 2900;
 
-const app: Application = express();
+export const app: Application = express();
 
 app.use(
 '/api-docs',
@@ -20,7 +20,7 @@ swaggerUi.setup(swaggerSpec)
 
 app.use(logger);
 app.use(express.json());
-app.use('/api/v1/cars', authenticateKey, carRoutes);
+app.use('/api/v1/cars', carRoutes);
 
 app.use((req, _res, next) => {  
     console.log(`${req.method} ${req.originalUrl}`);
@@ -50,13 +50,13 @@ app.get('/sneed', async (_req : Request, res: Response) => {
 //     console.log("Server is running on port", PORT);
 //     });
 
-    const startServer = async () => {
-  await connectDB();
+//     const startServer = async () => {
+//   await connectDB();
 
-  app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-  });
+//   app.listen(port, () => {
+//     console.log(`Server running on port ${port}`);
+//   });
 
-};
+// };
 
-startServer();
+//startServer();
