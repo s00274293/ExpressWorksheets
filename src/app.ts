@@ -6,6 +6,7 @@ import {authenticateKey} from './middleware/auth.middleware';
 import { logger } from './middleware/logger.middleware';
 import swaggerUi from 'swagger-ui-express' 
 import { swaggerSpec } from "./config/swagger";
+import cors from 'cors';
 
 const port = env.port
 //const PORT = process.env.PORT || 2900;
@@ -21,6 +22,7 @@ swaggerUi.setup(swaggerSpec)
 app.use(logger);
 app.use(express.json());
 app.use('/api/v1/cars', carRoutes);
+app.use(cors());
 
 app.use((req, _res, next) => {  
     console.log(`${req.method} ${req.originalUrl}`);
