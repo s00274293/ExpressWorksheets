@@ -64,17 +64,9 @@ export class CarController {
 *         description: Internal server error
 */
   getCarById = async (req: Request, res: Response): Promise<void> => {
-    try {
       const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
       const car = await carService.getCarById(id);
-      if (!car) {
-        res.status(404).json({ message: 'Car not found' });
-        return;
-      }
       res.status(200).json(car);
-    } catch (error) {
-      res.status(500).json({ message: 'Error fetching car', error });
-    }
   };
 
 
@@ -139,17 +131,9 @@ export class CarController {
         return;
       }
       
-    try {
       const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
       const updatedCar = await carService.updateCar(id, req.body);
-      if (!updatedCar) {
-        res.status(404).json({ message: 'Car not found' });
-        return;
-      }
       res.status(200).json(updatedCar);
-    } catch (error) {
-      res.status(500).json({ message: 'Error updating car', error });
-    }
   };
 
 
@@ -180,20 +164,10 @@ export class CarController {
 */
 
   deleteCar = async (_req: Request, res: Response): Promise<void> => {
-    try{
       const id = Array.isArray(_req.params.id) ? _req.params.id[0] : _req.params.id;
-      const deletingCar = await carService.deleteCar(id);
+      await carService.deleteCar(id);
 
-      if (!deletingCar) {
-        res.status(404).json({ message: 'Car not found' });
-        return;
-      }
-          res.status(200).json({ success: true, 
-            data: `car id ${_req.params.id} deleted successfully` }); 
-    }
-    catch(error){
-      res.status(500).json({ message: 'Error deleting car', error })
-    }
+      res.status(200).json({ success: true, data: `car id ${_req.params.id} deleted successfully` }); 
   };
 
 }
