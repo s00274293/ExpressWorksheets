@@ -15,6 +15,18 @@ describe('Test Car Validation', () => {
     ).not.toThrow();
   });
 
+  it('should coerce a string year', () => {
+    expect(() =>
+      createCarZSchema.parse({
+        body: {
+          make: 'Skoda',
+          model: 'Octavia',
+          year: '2022'
+        }
+      })
+    ).not.toThrow();
+  });
+
   it('should pass for the following valid data - no year', () => {
     expect(() =>
       createCarZSchema.parse({

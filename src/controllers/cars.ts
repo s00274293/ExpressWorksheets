@@ -1,7 +1,5 @@
 import { Request, Response } from 'express';
 import { CarService } from '../services/cars';
-import { createCarZSchema } from '../models/cars';
-import { updateCarZSchema } from '../models/cars';
 
 const carService = new CarService();
 
@@ -76,15 +74,6 @@ export class CarController {
   // };
 
   createCar = async (req: Request, res: Response): Promise<void> => {
-    const validation = createCarZSchema.safeParse(req.body);
-
-      console.log
-
-      if (!validation.success) {
-        res.status(400).json({ message: 'Invalid car data', errors: validation.error.issues });
-        return;
-      }
-
     try {
       const newCar = await carService.createCar(req.body);
       res.status(201).json(newCar);
@@ -122,15 +111,6 @@ export class CarController {
  */
 
   updateCar = async (req: Request, res: Response): Promise<void> => {
-    const validation = updateCarZSchema.safeParse(req.body);
-
-      console.log
-
-      if (!validation.success) {
-        res.status(400).json({ message: 'Invalid car data', errors: validation.error.issues });
-        return;
-      }
-      
       const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
       const updatedCar = await carService.updateCar(id, req.body);
       res.status(200).json(updatedCar);

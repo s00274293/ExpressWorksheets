@@ -11,7 +11,7 @@ const carSchema = new Schema<ICar>(
   {
     make: { type: String, required: true },
     model: { type: String, required: true },
-    year: { type: Number, required: true },
+    year: { type: Number, required: false },
   },
   { timestamps: true }
 );
@@ -40,7 +40,7 @@ export const createCarZSchema = z.object({
    body: z.object({
     make: z.string().min(1),
     model: z.string().min(1),
-    year: z.number().min(1950).optional(),
+    year: z.coerce.number().min(1950).optional(),
   }),
 });
 
@@ -48,7 +48,7 @@ export const updateCarZSchema = z.object({
   body: z.object({
     make: z.string().min(1),
     model: z.string().min(1),
-    year: z.number().min(1950).optional(),
+    year: z.coerce.number().min(1950).optional(),
   }),
 });
 
