@@ -20,10 +20,15 @@ swaggerUi.serve,
 swaggerUi.setup(swaggerSpec)
 );
 
+// Special code to add a delay - remove later
+//app.use((_req, _res, next) => setTimeout(next, 2000));
+
+
 app.use(logger);
 app.use(express.json());
-app.use('/api/v1/cars', carRoutes);
 app.use(cors());
+app.use('/api/v1/cars', carRoutes);
+
 
 app.use((req, _res, next) => {  
     console.log(`${req.method} ${req.originalUrl}`);
